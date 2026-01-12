@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
+  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>END-TO-END BINAURAL AUDIO GENERATION FROM TEXT DESCRIPTIONS USING TRANSFORMER</title>
+  <link rel="icon" type="image/x-icon" href="static/images/logo.png">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+
+  <!-- <style>
+    body {
+        background-image: url('static/images/222.webp');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+  </style> -->
+  <style>
+    /* Style to center the content */
+    .image-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100%;
+    }
+
+    .audio-container {
+      margin-top: 10px;
+    }
+
+    /* .audio-player {
+      width: 50%;
+      max-width: 300px;
+    } */
+
+    img {
+      width: 100%;
+      max-width: 500;
+    }
+    
+    .direction {
+    background-color: #ffeb3b;  /* 黄色高亮 */
+    padding: 2px 4px;          /* 内边距，让文字更明显 */
+    border-radius: 3px;        /* 圆角 */
+    font-weight: bold;         /* 加粗 */
+    color: #000;               /* 字体颜色（保持可读性） */
+  }
+
+  .move {
+    background-color: #8aace0;  /* 黄色高亮 */
+    padding: 2px 4px;          /* 内边距，让文字更明显 */
+    border-radius: 3px;        /* 圆角 */
+    font-weight: bold;         /* 加粗 */
+    color: #000;               /* 字体颜色（保持可读性） */
+  }
+
+  </style>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">MS-TTBA: Mid–Side Tokenized Text-to-Binaural Audio with Large Language Models</h1>
+                <div class="is-size-4 publication-authors">
+                        <!-- Paper authors -->
+                  <span class="author-block" style="color: #077caa;">
+                          Changjun He
+                  </span>,
+                  <span class="author-block" style="color: #077caa;">
+                    Lianyu Zhou
+                  </span>,
+                  <span class="author-block" style="color: #077caa;">
+                   Wenjie Zhang
+                  </span>,
+                  <span class="author-block" style="color: #077caa;">
+                    Shiyun Xu
+                   </span>,
+                   <span class="author-block" style="color: #077caa;">
+                    Weiping Chen<sup><span style="color: black;">*</span></sup>
+                  </span>
+                  <span class="author-block" style="color: #077caa;">
+                    Mingjiang Wang<sup><span style="color: black;">*</span></sup>
+                  </span>
+
+                </div>
+
+                <div class="is-size-4 publication-authors">
+                  <!-- <span class="author-block"> Harbin Institute of Technology, Harbin Institute of Technology (Shenzhen)</span> -->
+                  <span class="eql-cntrb">Harbin Institute of Technology, Harbin Institute of Technology (Shenzhen)</span>
+                  <span class="eql-cntrb"><br><sup>*</sup>Corresponding Author</small></span>
+                </div>
+
+                
+
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+
+
+
+
+<!-- Text-to-Audio Demo Section -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+
+      <p class="subtitle" style="margin: -20px 0 80px; font-size:22px; line-height:1.55;">
+        This demo page compares <strong>text-to-binaural audio</strong> generation by <em>Stable_audio_open</em>, <em>SpatialSonic</em>, <em>Ours</em> on <strong>BEWO-1M</strong> subsets (SS-Set, DS-Set, SD-Set, M-Set). 
+        Using identical text prompts, it provides a fair, side-by-side evaluation of spatialization quality and consistency. 
+        <strong>Please wear headphones while listening to these audios for the best experience.</strong>
+      </p>
+
+      <h1 class="title" style="text-align: center;">Text to <span style="color:#d32f2f;  font-weight: bold; font-size:36px;">Binaural Audio</span>  Generation Comparison</h1>
+
+      <!-- 数据集 1 标题：Examples 1–3 -->
+      <h2 style="margin: 10px 0 10px; font-size: 30px; font-weight: 700;">
+        SS-Set
+      </h2>
+
+      <!-- Example 1 -->
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+          "Vehicles at the <span class="direction"> front left</span>  of the scene hum and vibrate as they rev their engines."
+        </p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <p>Stable_audio_open</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/Stable_audio_open/1.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>SpatialSonic</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/SpatialSonic/1.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>Ours</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/ours/1.wav" type="audio/wav">  
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Example 2 -->
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+          "Wind blows hard from the <span class="direction"> right</span> of the scene."
+        </p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <p>Stable_audio_open</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/Stable_audio_open/2.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>SpatialSonic</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/SpatialSonic/2.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>Ours</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/ours/2.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Example 3 -->
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+          "The toilet flushing is located directly <span class="direction">  in front of</span> the scene."
+        </p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <p>Stable_audio_open</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/Stable_audio_open/3.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>SpatialSonic</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/SpatialSonic/3.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>Ours</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/ours/3.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- 数据集 2 -->
+      <h2 style="margin: 20px 0 10px; font-size: 30px; font-weight: 700;">
+        DS-Set
+      </h2>
+
+      <!-- Example 4 -->
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+          "Water is turning on and running continuously at the <span class="direction"> front right</span> of the scene, while a person is speaking amidst various laughter and clapping on the <span class="direction">right</span>."
+        </p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <p>Stable_audio_open</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/Stable_audio_open/4.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>SpatialSonic</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/SpatialSonic/4.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>Ours</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/ours/4.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Example 5 -->
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+          "At the <span class="direction">right</span>, a large dog barks while an engine revs directly <span class="direction">in front of </span> the scene."
+        </p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <p>Stable_audio_open</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/Stable_audio_open/5.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>SpatialSonic</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/SpatialSonic/5.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>Ours</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/ours/5.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Example 6 -->
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+          "A car engine revving on the <span class="direction">left</span> with a vehicle horn honking directly <span class="direction">in front of</span> the scene."
+        </p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <p>Stable_audio_open</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/Stable_audio_open/6.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>SpatialSonic</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/SpatialSonic/6.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>Ours</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/ours/6.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      
+      <!-- 数据集 3 -->
+      <h2 style="margin: 20px 0 10px; font-size: 30px; font-weight: 700;">
+        SD-Set
+      </h2>
+
+      <!-- Example 7 -->
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+          "Thunderstorm sounds <span class="direction"> start on the right and slowly move to the front right</span>."
+        </p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <p>Stable_audio_open</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/Stable_audio_open/7.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>SpatialSonic</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/SpatialSonic/7.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>Ours</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/ours/7.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Example 8 -->
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+          "A toilet flushes <span class="direction">from the right to the left </span> at a moderate speed."
+        </p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <p>Stable_audio_open</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/Stable_audio_open/8.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>SpatialSonic</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/SpatialSonic/8.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>Ours</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/ours/8.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Example 9 -->
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+          "Ocean waves move <span class="direction">from front right to left</span> at a fast speed."
+        </p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <p>Stable_audio_open</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/Stable_audio_open/9.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>SpatialSonic</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/SpatialSonic/9.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>Ours</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/ours/9.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      
+      <!-- 数据集 4 -->
+      <h2 style="margin: 20px 0 10px; font-size: 30px; font-weight: 700;">
+        M-Set
+      </h2>
+
+      <!-- Example 10 -->
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+          "Whimpers of dogs can be heard from the <span class="direction">front right</span>, abruptly followed by a glass link, a thump, and clattering from the <span class="direction"> right</span> side."
+        </p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <p>Stable_audio_open</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/Stable_audio_open/10.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>SpatialSonic</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/SpatialSonic/10.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>Ours</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/ours/10.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Example 11 -->
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+          "A man is laughing, slowly <span class="direction">shifting from directly in front towards the left</span>, while a horn honks several times on the <span class="direction">left</span>."
+        </p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <p>Stable_audio_open</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/Stable_audio_open/11.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>SpatialSonic</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/SpatialSonic/11.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>Ours</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/ours/11.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Example 12 -->
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+          "From the <span class="direction">right</span> side, the sound of a toilet flushing <span class="direction">sweeps across to the left</span> at a moderate pace, while gurgling water resounds from the <span class="direction">front right</span>."
+        </p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <p>Stable_audio_open</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/Stable_audio_open/12.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>SpatialSonic</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/SpatialSonic/12.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>Ours</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/ours/12.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+
+
+      <p style="text-align: left; margin-top: 10px; padding: 2px; border: 2px solid #ff9800; border-radius: 5px; background-color: #fff3e0; width: 30%;">
+        ⚠️ Please use headphones for the best experience.
+      </p> 
+
+    </div>
+  </div>
+</section>
+<!-- End Demo Section -->
+
+
+
+
+
+ 
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var audios = document.querySelectorAll('audio');
+  
+        audios.forEach(function(audio) {
+          audio.addEventListener('play', function() {
+            audios.forEach(function(otherAudio) {
+              if (otherAudio !== audio) {
+                otherAudio.pause();
+                otherAudio.currentTime = 0; // 可选：重置进度条
+              }
+            });
+          });
+        });
+      });
+    </script>
+    
+  </body>
+  </html>
