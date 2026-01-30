@@ -156,22 +156,19 @@
     <div class="container">
 
       <p class="subtitle" style="margin: -20px 0 80px; font-size:22px; line-height:1.55;">
-        This demo page compares <strong>text-to-binaural audio</strong> generation by <em>Stable_audio_open</em>, <em>SpatialSonic</em>, <em>Ours</em> on <strong>BEWO-1M</strong> subsets (SS-Set, DS-Set, SD-Set, M-Set). 
+        This demo page compares <strong>text-to-binaural audio</strong> generation by <em>Stable_audio_open</em>, <em>SpatialSonic</em> and <em>Ours</em>. 
         Using identical text prompts, it provides a fair, side-by-side evaluation of spatialization quality and consistency. 
-        <strong>Please wear headphones while listening to these audios for the best experience.</strong>
+        <strong>Please wear headphones while listening to these audios for the best experience, and pay particular attention to the perceived sound direction!</strong>
       </p>
 
       <h1 class="title" style="text-align: center;">Text to <span style="color:#d32f2f;  font-weight: bold; font-size:36px;">Binaural Audio</span>  Generation Comparison</h1>
 
-      <!-- 数据集 1 标题：Examples 1–3 -->
-      <h2 style="margin: 10px 0 10px; font-size: 30px; font-weight: 700;">
-        SS-Set
-      </h2>
+
 
       <!-- Example 1 -->  
       <div style="margin-bottom: 30px;">
         <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
-          "The baby is crying, positioned at the front left of the scene."
+          "The baby is crying, positioned at the <span class="direction">front left</span> of the scene."
         </p>
         <div style="display: flex; gap: 20px; flex-wrap: wrap;">
           <div style="text-align: center;">
@@ -196,37 +193,12 @@
       </div>
 
 
-      <!-- Example 4 -->
-      <div style="margin-bottom: 30px;">
-        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
-          "A person is typing on a keyboard with a mouse clicking in front left."
-        </p>
-        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-          <div style="text-align: center;">
-            <p>Stable_audio_open</p>
-            <audio controls style="width: 300px; margin-top: 5px;">
-              <source src="static/audios/Stable_audio_open/4.wav" type="audio/wav">
-            </audio>
-          </div>
-          <div style="text-align: center;">
-            <p>SpatialSonic</p>
-            <audio controls style="width: 300px; margin-top: 5px;">
-              <source src="static/audios/SpatialSonic/4.wav" type="audio/wav">
-            </audio>
-          </div>
-          <div style="text-align: center;">
-            <p>Ours</p>
-            <audio controls style="width: 300px; margin-top: 5px;">
-              <source src="static/audios/ours/4.wav" type="audio/wav">
-            </audio>
-          </div>
-        </div>
-      </div>
+
 
       <!-- Example 5 -->
       <div style="margin-bottom: 30px;">
         <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
-          "On the left of the scene, ducks are quacking and water splashes softly."
+          "On the <span class="direction">left</span> of the scene, ducks are quacking and water splashes softly."
         </p>
         <div style="display: flex; gap: 20px; flex-wrap: wrap;">
           <div style="text-align: center;">
@@ -250,16 +222,37 @@
         </div>
       </div>
 
-
-      <!-- 数据集 2 -->
-      <h2 style="margin: 20px 0 10px; font-size: 30px; font-weight: 700;">
-        DS-Set
-      </h2>
+      <!-- Example 11 -->
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+          "Emergency siren blaring steadily <span class="direction">from right to front left</span> at a slow speed"
+        </p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <p>Stable_audio_open</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/Stable_audio_open/10.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>SpatialSonic</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/SpatialSonic/10.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>Ours</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/ours/10.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
 
       <!-- Example 8 -->
       <div style="margin-bottom: 30px;">
         <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
-          "On the right, dogs are barking repeatedly, while on the left, a female is speaking continuously."
+          "On the <span class="direction">right</span>, dogs are barking repeatedly, while on the <span class="direction">left</span>, a female is speaking continuously."
         </p>
         <div style="display: flex; gap: 20px; flex-wrap: wrap;">
           <div style="text-align: center;">
@@ -283,11 +276,11 @@
         </div>
       </div>
 
-      
+
       <!-- Example 6 -->
       <div style="margin-bottom: 30px;">
         <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
-          "Pigeons cooing in the rainy weather, situated to the left of the scene."
+          "Pigeons cooing in the rainy weather, situated to the <span class="direction">left</span> of the scene."
         </p>
         <div style="display: flex; gap: 20px; flex-wrap: wrap;">
           <div style="text-align: center;">
@@ -311,10 +304,38 @@
         </div>
       </div>
 
+      <!-- Example 11 -->
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+          "Rustling pigeons coo <span class="direction">from right to left</span> slowly."
+        </p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <p>Stable_audio_open</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/Stable_audio_open/11.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>SpatialSonic</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/SpatialSonic/11.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div style="text-align: center;">
+            <p>Ours</p>
+            <audio controls style="width: 300px; margin-top: 5px;">
+              <source src="static/audios/ours/11.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+      </div>
+
+
       <!-- Example 7 -->
       <div style="margin-bottom: 30px;">
         <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
-          "At the right, a large dog barks while an engine revs directly in front of the scene."
+          "At the <span class="direction">right</span>, a large dog barks while an engine revs directly <span class="direction">in front of</span> the scene."
         </p>
         <div style="display: flex; gap: 20px; flex-wrap: wrap;">
           <div style="text-align: center;">
@@ -340,72 +361,42 @@
 
 
 
-
-            
-      
-      <!-- 数据集 3 -->
-      <h2 style="margin: 20px 0 10px; font-size: 30px; font-weight: 700;">
-        SD-Set
-      </h2>
-
-      <!-- Example 11 -->
+      <!-- Example 4 -->
       <div style="margin-bottom: 30px;">
         <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
-          "Emergency siren blaring steadily from right to front left at a slow speed"
+          "A person is typing on a keyboard with a mouse clicking in <span class="direction">front left</span>."
         </p>
         <div style="display: flex; gap: 20px; flex-wrap: wrap;">
           <div style="text-align: center;">
             <p>Stable_audio_open</p>
             <audio controls style="width: 300px; margin-top: 5px;">
-              <source src="static/audios/Stable_audio_open/10.wav" type="audio/wav">
+              <source src="static/audios/Stable_audio_open/4.wav" type="audio/wav">
             </audio>
           </div>
           <div style="text-align: center;">
             <p>SpatialSonic</p>
             <audio controls style="width: 300px; margin-top: 5px;">
-              <source src="static/audios/SpatialSonic/10.wav" type="audio/wav">
+              <source src="static/audios/SpatialSonic/4.wav" type="audio/wav">
             </audio>
           </div>
           <div style="text-align: center;">
             <p>Ours</p>
             <audio controls style="width: 300px; margin-top: 5px;">
-              <source src="static/audios/ours/10.wav" type="audio/wav">
+              <source src="static/audios/ours/4.wav" type="audio/wav">
             </audio>
           </div>
         </div>
       </div>
 
-      <!-- Example 11 -->
-      <div style="margin-bottom: 30px;">
-        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
-          "Rustling pigeons coo from right to left slowly."
-        </p>
-        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-          <div style="text-align: center;">
-            <p>Stable_audio_open</p>
-            <audio controls style="width: 300px; margin-top: 5px;">
-              <source src="static/audios/Stable_audio_open/11.wav" type="audio/wav">
-            </audio>
-          </div>
-          <div style="text-align: center;">
-            <p>SpatialSonic</p>
-            <audio controls style="width: 300px; margin-top: 5px;">
-              <source src="static/audios/SpatialSonic/11.wav" type="audio/wav">
-            </audio>
-          </div>
-          <div style="text-align: center;">
-            <p>Ours</p>
-            <audio controls style="width: 300px; margin-top: 5px;">
-              <source src="static/audios/ours/11.wav" type="audio/wav">
-            </audio>
-          </div>
-        </div>
-      </div>
+
+
+
+
 
       <!-- Example 12 -->
       <div style="margin-bottom: 30px;">
         <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
-          "The engine is vibrating from the right, then moves to the left at a moderate speed."
+          "The engine is vibrating <span class="direction">from the right, then moves to the left</span> at a moderate speed."
         </p>
         <div style="display: flex; gap: 20px; flex-wrap: wrap;">
           <div style="text-align: center;">
@@ -429,43 +420,12 @@
         </div>
       </div>
 
-      
-      <!-- 数据集 4 -->
-      <h2 style="margin: 20px 0 10px; font-size: 30px; font-weight: 700;">
-        M-Set
-      </h2>
 
-      <!-- Example 13 -->
-      <div style="margin-bottom: 30px;">
-        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
-          "Sewing machine on the front right moves instantly to directly in front, clicking and working rapidly; a cat meows twice from the front left."
-        </p>
-        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-          <div style="text-align: center;">
-            <p>Stable_audio_open</p>
-            <audio controls style="width: 300px; margin-top: 5px;">
-              <source src="static/audios/Stable_audio_open/13.wav" type="audio/wav">
-            </audio>
-          </div>
-          <div style="text-align: center;">
-            <p>SpatialSonic</p>
-            <audio controls style="width: 300px; margin-top: 5px;">
-              <source src="static/audios/SpatialSonic/13.wav" type="audio/wav">
-            </audio>
-          </div>
-          <div style="text-align: center;">
-            <p>Ours</p>
-            <audio controls style="width: 300px; margin-top: 5px;">
-              <source src="static/audios/ours/13.wav" type="audio/wav">
-            </audio>
-          </div>
-        </div>
-      </div>
 
       <!-- Example 14 -->
       <div style="margin-bottom: 30px;">
         <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
-          "Directly in front, several goats bleat, while a bus accelerates from the right to the left at a slow speed, accompanied by sounds of people chatting."
+          "Directly in <span class="direction">front</span>, several goats bleat, while a bus accelerates <span class="direction">from the right to the left</span> at a slow speed."
         </p>
         <div style="display: flex; gap: 20px; flex-wrap: wrap;">
           <div style="text-align: center;">
@@ -490,32 +450,7 @@
       </div>
 
 
-      <!-- Example 15 -->
-      <div style="margin-bottom: 30px;">
-        <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
-          "Dogs swiftly shifting from directly in front to the front right, barking and growling, while a baby cries and coos to the left."
-        </p>
-        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-          <div style="text-align: center;">
-            <p>Stable_audio_open</p>
-            <audio controls style="width: 300px; margin-top: 5px;">
-              <source src="static/audios/Stable_audio_open/15.wav" type="audio/wav">
-            </audio>
-          </div>
-          <div style="text-align: center;">
-            <p>SpatialSonic</p>
-            <audio controls style="width: 300px; margin-top: 5px;">
-              <source src="static/audios/SpatialSonic/15.wav" type="audio/wav">
-            </audio>
-          </div>
-          <div style="text-align: center;">
-            <p>Ours</p>
-            <audio controls style="width: 300px; margin-top: 5px;">
-              <source src="static/audios/ours/15.wav" type="audio/wav">
-            </audio>
-          </div>
-        </div>
-      </div>
+
 
 
 
